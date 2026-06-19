@@ -11,7 +11,11 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: warp-tech/warpgate
+  # TEST BRANCH ONLY: publish to the fork's namespace so the build can push +
+  # sign + attest without warp-tech write access. Do NOT merge this change.
+  # Hardcoded lowercase because OCI repo names must be lowercase and the GitHub
+  # user is "mathieuHa" (github.repository would yield an invalid uppercase ref).
+  IMAGE_NAME: mathieuha/warpgate
 
 jobs:
   build:
