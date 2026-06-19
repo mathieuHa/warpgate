@@ -1,0 +1,46 @@
+{
+  "@context": "https://openvex.dev/ns/v0.2.0",
+  "@id": "https://github.com/warp-tech/warpgate/.well-known/vex/warpgate.openvex.json",
+  "author": "Warpgate maintainers",
+  "role": "Image build pipeline",
+  "timestamp": "2026-06-19T00:00:00Z",
+  "version": 1,
+  "statements": [
+    {
+      "vulnerability": {
+        "name": "CVE-2011-3389",
+        "description": "GnuTLS / SSL/TLS BEAST"
+      },
+      "products": [
+        { "@id": "pkg:oci/warpgate?repository_url=ghcr.io/warp-tech/warpgate" }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "libgnutls30 ships in the Debian base image but is not used by Warpgate (which uses rustls); the vulnerable code is never executed."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-42009",
+        "description": "GnuTLS: DoS via DTLS packet reordering"
+      },
+      "products": [
+        { "@id": "pkg:oci/warpgate?repository_url=ghcr.io/warp-tech/warpgate" }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "libgnutls30 ships in the Debian base image but is not used by Warpgate (which uses rustls); the vulnerable code is never executed."
+    },
+    {
+      "vulnerability": {
+        "name": "CVE-2026-5260",
+        "description": "GnuTLS: information disclosure via heap overread"
+      },
+      "products": [
+        { "@id": "pkg:oci/warpgate?repository_url=ghcr.io/warp-tech/warpgate" }
+      ],
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "impact_statement": "libgnutls30 ships in the Debian base image but is not used by Warpgate (which uses rustls); the vulnerable code is never executed."
+    }
+  ]
+}

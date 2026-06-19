@@ -116,6 +116,12 @@ jobs:
       id-token: write
       attestations: write
     steps:
+      - name: Checkout
+        # Provides docker/warpgate.openvex.json for the VEX attestation below.
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10
+        with:
+          fetch-depth: 1
+
       - name: Download digests
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
         with:
@@ -192,3 +198,13 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+
+      - name: Attest VEX (OpenVEX)
+        # Marks CVEs in base-image packages Warpgate does not use as
+        # not_affected, so VEX-aware scanners (e.g. `trivy image --vex oci`)
+        # suppress them with a documented justification. Curate the statements
+        # in docker/warpgate.openvex.json.
+        env:
+          IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          DIGEST: ${{ steps.push.outputs.digest }}
+        run: cosign attest --yes --type openvex --predicate docker/warpgate.openvex.json "${IMAGE}@${DIGEST}"
